@@ -17,7 +17,6 @@ __Jellemzők:__
             this.message = "Hello, World!";
         }
 
-
 - Getter és Setter metódusok:
 
   A JavaBeaneknek getter és setter metódusokkal kell rendelkezniük a tulajdonságok eléréséhez és beállításához.
@@ -158,7 +157,6 @@ o	Az adatok érvényesek mindaddig, amíg a felhasználó az adott nézeten bel�
 o	A példány létrejön, amikor egy JSF View egy GET-kéréssel kezdődik, és addig tart, amíg a felhasználó beküld egy POST form-ot az action method-höz, ami null-t vagy void-t ad vissza.
 
 
-
 ### MVC architektúra + rajz: 
 
 A Model-View-Controller (MVC) architektúra egy olyan tervezési minta, amely elkülöníti az alkalmazás logikáját (model), a felhasználói felületet (view) és a felhasználói interakciókat (controller). Ezt a mintát használva könnyebbé válik az alkalmazások fejlesztése és karbantartása, mivel a különböző részeket egymástól függetlenül lehet fejleszteni és tesztelni.
@@ -234,7 +232,6 @@ Ebben a példában a MyServlet osztály injektálja a MyService típusú függő
 
 Az @Inject annotációval történő függőség-befecskendezés lehetőséget nyújt a gyenge kapcsolatú és könnyen tesztelhető komponensek létrehozására, mivel a függőségeket az objektum kívülről kapja meg, és nem maga hozza létre őket.
 
-
 - ### Különbségek: @autowired és @injection
 
 #### 1.) Keretrendszer támogatás:
@@ -271,15 +268,55 @@ Kiterjesztési lehetőségek:
 Végső soron mindkét annotáció fő célja a függőség-befecskendezés elősegítése, de a választás a projekt követelményeitől, a keretrendszer preferenciáitól és az alkalmazás kontextusától is függ.
 
 
+### Autentikáció = > felhasználók hitelesítése:
 
+Alapból három eset van a Spring Security-ben a felhasználók hitelesítésénél:
 
-### Autentikáció: 
+1. Hozzáférsz a felhasználó – hash-elt – jelszavához, mert pl. az adatait egy adatbázisban tárolod – ez az alap
+   
+2. Kevésbé gyakori: Nem tudsz hozzáférni a felhasználó – hash-elt – jelszavához. Ez akkor áll fenn, ha a felhasználók adatait valahol máshol tároljuk, például egy harmadik féltől származó identity management product-ban, ami a felhasználók hitelesítéséhez REST-szolgáltatásokat nyújt. Ilyen például az Atlassian Crowd.
+   
+3. Szintén népszerű: OAuth2-t, vagy OpenID-t (Google-lel/Twitter-rel, stb.-vel történő belépés) akarunk használni, általában JWT-vel – JSON Web Tokens - együtt.
+
+### AAA protokoll, autentikációs mechanizmusok => authentication,  authorization, accounting:
+
+- **authentication**: felhasználó azonosítása
+
+- **authorization**: azonosítást követően ellenőrzi, hogy a felhasználó jogosult-e a kért erőforrásokhoz.
+
+- **accounting**: felhasználói tevékenységek rögzítésével és nyomon követésével foglalkozik. Nyomon követi, hogy a felhasználó milyen erőforrásokhoz fér hozzá, mikor és hogyan használja azokat.
 
 ### Webszolgáltatások architektúrája: 
 
-### Rest fogalma: 
+**- Webszolgáltatások:** alkalmazások közötti adatcserére szolgáló protokollok és szabványok gyűjteménye. Különböző programnyelveken írt és különböző platformokon futó szoftveralkalmazások számítógép-hálózatokon (mint az internet) keresztül történő adatcserére használják.
 
-### JWT: 
+**- SOAP (Simple Object Access Protocol):**
+A SOAP egy protokoll, amelyet XML formátumban használnak a különböző rendszerek közötti kommunikációhoz.
+A SOAP webszolgáltatások általában XML-en alapuló üzeneteket használnak, és támogatják a kliens-szerver kommunikációt.
+
+**- REST (Representational State Transfer):**
+A REST egy könnyű, állapottól mentes (stateless) architektúrális stílus, amelyet webszolgáltatások kialakításához használnak.
+A RESTful webszolgáltatásoknak nincs szükségük állapotfenntartásra, minden kérés a kliens által tartalmazott információkból áll.
+Az erőforrásokat URL-eken keresztül azonosítják, és különböző HTTP módszereket használnak a műveletek végrehajtásához (GET, POST, PUT, DELETE stb.).
+
+**-WSDL (Web Services Description Language):**
+A WSDL egy XML alapú nyelv, amely a webszolgáltatások interfészét írja le.
+Részletesen meghatározza, hogy egy webszolgáltatás milyen funkciókat nyújt, és milyen formátumban kell az üzeneteket küldeni és fogadni.
+
+**A webszolgáltatások architektúrája a következő kulcsfontosságú elveken alapul:**
+
+- Interoperabilitás: A webszolgáltatásoknak különböző platformokon és programozási nyelveken kell működniük, és képeseknek kell lenniük az adatok megosztására.
+
+- Kényszerítés (Loose Coupling): A kliens és a szerver közötti kapcsolatnak lazának kell lennie, vagyis a változtatásoknak az egyik oldalon ne kelljen befolyásolniuk a másik oldalt.
+
+- Állapottól mentesség (Statelessness): A webszolgáltatásoknak nem kell tárolniuk a kliensek állapotát a kérések között.
+
+- Egységes interfész: A webszolgáltatásoknak egységes interfészt kell használniuk, például HTTP protokollt, REST vagy SOAP formátumot.
+
+- Biztonság: A webszolgáltatásoknak biztonságosnak kell lenniük az adatok védelme érdekében. Ez magában foglalhatja az SSL használatát, az azonosítást és az engedélyezést.
+
+
+### JWT => JSON Web Token: 
 
 ### Angular szintaxis: 
 
