@@ -282,3 +282,5 @@ Végső soron mindkét annotáció fő célja a függőség-befecskendezés elő
 ### JWT: 
 
 ### Angular szintaxis: 
+
+### Milyen http kérések léteznek?
