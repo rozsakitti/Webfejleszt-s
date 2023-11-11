@@ -317,7 +317,74 @@ Részletesen meghatározza, hogy egy webszolgáltatás milyen funkciókat nyújt
 
 
 ### JWT => JSON Web Token: 
+A JWT-ket általában az azonosítási mechanizmusokban használják. Amikor egy felhasználó bejelentkezik, a szerver előállíthat egy olyan JWT-t, amely tartalmazza a felhasználóval kapcsolatos információkat, majd elküldi azt a kliensnek. A kliens ezt a tokent később beleillesztheti a kéréseinek fejlécébe azonosítás céljából. A szerver pedig ellenőrzi a tokent, hogy megbizonyosodjon arról, hogy valódi, és nem lett megváltoztatva.
 
-### Angular szintaxis: 
+- fejléc:
+alkalmazott aláírási algoritmus + token típusa
 
-### Milyen http kérések léteznek?
+      {
+        "alg": "HS256",
+        "typ": "JWT"
+      }
+
+- adattartalom (Payload): 
+A token második része az adattartalom, amely tartalmazza az állításokat. Az állítások olyan kijelentések, amelyeket egy entitásról szólnak (általában a felhasználóról) és további adatokat. Gyakori állítások a iss (kibocsátó), exp (lejárati idő), sub (tárgy), aud (közönség) stb.
+
+      {
+        "sub": "1234567890",
+        "name": "John Doe",
+        "iat": 1516239022
+      }
+
+- Aláírás (Signature):
+Az aláírás rész létrehozásához szükséges az előzőleg kódolt fejléc, az előzőleg kódolt adattartalom, egy titok, a fejléc által meghatározott algoritmus és az aláírás.
+
+      HMACSHA256(
+        base64UrlEncode(header) + "." +
+        base64UrlEncode(payload),
+        secret)
+
+**A végső JWT így néz ki:**
+
+xxxxx.yyyyy.zzzzz
+
+**xxxxx** a base64Url-kódolt fejléc.
+
+**yyyyy** a base64Url-kódolt adattartalom.
+
+**zzzzz** a base64Url-kódolt aláírás.
+
+### Angular szintaxis: ???
+
+### Milyen http kérések léteznek? => get, head, post, put, delete, connect, options, trace, patch
+
+**GET**: Az erőforrás lekérése. A GET kérés nem módosítja az erőforrást, csak lekéri az azt reprezentáló adatokat.
+
+**HEAD**: A HEAD kérés hasonló a GET kéréshez, de csak a fejléceket kéri le, anélkül, hogy a tényleges tartalmat elküldené.
+
+**POST** => create: Arra szolgál, hogy új erőforrást hozzon létre a szerveren, például új felhasználót regisztrálni. A POST nem idempotens, azaz ugyanazt a kérést többször elküldve más és más eredményt hozhat létre.
+
+**PUT**: => update: Az adatok küldése a szervernek a megadott erőforrás módosítása céljából. A szerver a kért erőforrást módosítja, vagy ha nem létezik, létrehozza azt. A PUT idempotens, azaz ugyanazt a kérést többször elküldve ugyanazt az eredményt hozza létre.
+
+**DELETE**: Az erőforrás törlése a szerveren.
+
+**CONNECT**: A célja egy TCP-tunnel kiépítése a kliens és a szerver között.
+
+**OPTIONS**: A szerverrel való kommunikáció paramétereinek lekérése. Például, hogy milyen HTTP módszereket támogat a szerver.
+
+**TRACE**: A kliensnek lehetősége van kérni a szervertől, hogy küldje vissza az eredeti kérési fejléceket. Általában a hibakeresésre használják.
+
+**PATCH**:A PATCH kérés célja egy meglévő erőforrás részleges módosítása. Ez hasznos lehet, ha csak néhány adatot kell frissíteni, és nem akarjuk teljesen lecserélni az erőforrást.
+
+### String interpoláció: 
+olyan eljárás, amely lehetővé teszi egy karakterlánc (string) szövegbe ágyazott változók vagy kifejezések értékének beillesztését. 
+
+         String template = "Hi ${name}! Your number is ${number}";
+        
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("name", "John");
+        data.put("number", "1");
+        
+        String formattedString = StrSubstitutor.replace(template, data);
+
+
