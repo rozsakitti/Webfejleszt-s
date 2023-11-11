@@ -186,8 +186,94 @@ A vezérlő biztosítja a kapcsolatot a model és a nézet között, de maga nem
 
 ### Mi az @autowired?
 
+Az @Autowired egy Spring keretrendszerben használt annotáció, amelyet a függőség befecskendezés (dependency injection) támogatására használnak. A függőség-befecskendezés egy olyan tervezési minta, amelynek célja, hogy a szükséges objektumokat (függőségeket) külsőleg injektálja egy komponensbe, ahelyett, hogy a komponensnek kellene létrehoznia vagy keresnie azokat.
+
+      import org.springframework.beans.factory.annotation.Autowired;
+      import org.springframework.stereotype.Component;
+
+      @Component
+      public class MyComponent {
+      
+          private SomeService someService;
+      
+          @Autowired
+          public MyComponent(SomeService someService) {
+              this.someService = someService;
+          }
+      
+      }
+
+Ebben az példában a MyComponent osztály egy Spring komponens (bean), amelynek egy SomeService típusú függősége van. Az @Autowired annotáció segítségével a Spring konténer automatikusan injektálja a megfelelő SomeService példányt a MyComponent konstruktorán keresztül. Ez azt jelenti, hogy a fejlesztőnek nem kell manuálisan létrehoznia vagy keresnie a SomeService példányt; a Spring konténer gondoskodik róla, hogy az szükség esetén rendelkezésre álljon.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ### Mi az @inject?
+
+Az @Inject annotáció egy Java Dependency Injection (DI) annotáció, amelyet a Java Platform, Enterprise Edition (Java EE) és a Java Platform, Micro Edition (Java ME) alkalmazásokban használnak. Ezzel az annotációval jelöljük meg azokat a helyeket a kódban, ahol függőségeket injektálunk egy objektumba vagy komponensbe.
+
+Fontos megjegyezni, hogy az @Inject annotáció is használható Java SE (Standard Edition) alkalmazásokban is, ha az alkalmazás támogatja a Dependency Injection-t. A Spring keretrendszer például használható Java SE alkalmazásokban is, és az @Autowired annotáció helyettesíti az @Inject-et.
+
+        import javax.inject.Inject;
+        import javax.servlet.annotation.WebServlet;
+        import javax.servlet.http.HttpServlet;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        
+        @WebServlet("/myServlet")
+        public class MyServlet extends HttpServlet {
+        
+            @Inject
+            private MyService myService;
+        
+            @Override
+            protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+                // Használjuk a myService-t...
+            }
+        }
+
+Ebben a példában a MyServlet osztály injektálja a MyService típusú függőségét az @Inject annotáció segítségével. A Java EE konténer gondoskodik arról, hogy a megfelelő MyService példány rendelkezésre álljon a servlet számára.
+
+Az @Inject annotációval történő függőség-befecskendezés lehetőséget nyújt a gyenge kapcsolatú és könnyen tesztelhető komponensek létrehozására, mivel a függőségeket az objektum kívülről kapja meg, és nem maga hozza létre őket.
+
+<center> ![image](https://github.com/rozsakitti/Webfejleszt-s/assets/90957539/c36b5325-d17e-48e0-b39e-b54c13b5150c) </center>
+
+- ### Különbségek: @autowired és @injection
+
+#### 1.) Keretrendszer támogatás:
+
+**@Autowired:** A Spring keretrendszer része, és főként a Spring Dependency Injection rendszerrel használják.
+
+**@Inject:** A Java Contexts and Dependency Injection (CDI) specifikáció része, és elsősorban Java EE (Enterprise Edition) alkalmazásokban használják, de használható Java SE (Standard Edition) alkalmazásokban is, ha a megfelelő CDI konténer rendelkezésre áll.
+
+#### 2.) Importálás:
+
+**@Autowired:** Az org.springframework.beans.factory.annotation.Autowired csomagból származik.
+
+**@Inject:** Az javax.inject.Inject csomagból származik.
+
+#### 3.) Beállítási lehetőségek:
+
+**@Autowired:** Többféle módon is konfigurálható, például az attribútumok (fields), konstruktorok és setter metódusok segítségével. Támogat továbbá opcionális és kötelező függőségek kezelését is.
+
+**@Inject:** Általában a konstruktorok és setter metódusok használatával konfigurálható, és a CDI specifikációban kevesebb beállítási lehetőséget definiál, mint a Spring.
+
+#### 4.) Támogatott típusok:
+
+Mindkét annotáció általában támogatja a konstruktorokat, setter metódusokat és mezőket (fields) a függőségek injektálására.
+Kiterjesztési lehetőségek:
+
+**@Autowired:** A Spring keretrendszer számos egyéb annotációt és lehetőséget biztosít az @Autowired kiterjesztésére és finomhangolására.
+**@Inject:** A CDI specifikáció kevésbé rugalmas és kevesebb kiterjesztési lehetőséget biztosít.
+
+#### 5.) Kompatibilitás:
+
+**@Autowired:** Jellemzően csak Spring alkalmazásokban használják.
+
+**@Inject:** Javasolt a Java EE alkalmazásokban, de használható Java SE alkalmazásokban is, ha a CDI konténer elérhető.
+Végső soron mindkét annotáció fő célja a függőség-befecskendezés elősegítése, de a választás a projekt követelményeitől, a keretrendszer preferenciáitól és az alkalmazás kontextusától is függ.
+
+
+
 
 ### Autentikáció: 
 
