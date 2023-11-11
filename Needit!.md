@@ -181,8 +181,6 @@ A vezérlő feladata az felhasználói interakciók kezelése, azok feldolgozás
 Fogadja a bejövő kéréseket a felhasználótól, elvégzi a szükséges műveleteket, majd frissíti a modelt vagy a nézetet.
 A vezérlő biztosítja a kapcsolatot a model és a nézet között, de maga nem tartalmazza a teljes üzleti logikát.
 
-![image](https://github.com/rozsakitti/Webfejleszt-s/assets/90957539/bfd8c156-c634-4132-beaf-068ddb5791e2)
-
 
 ### Mi az @autowired?
 
