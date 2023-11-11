@@ -161,7 +161,31 @@ o	A példány létrejön, amikor egy JSF View egy GET-kéréssel kezdődik, és 
 
 ### MVC architektúra + rajz: 
 
+A Model-View-Controller (MVC) architektúra egy olyan tervezési minta, amely elkülöníti az alkalmazás logikáját (model), a felhasználói felületet (view) és a felhasználói interakciókat (controller). Ezt a mintát használva könnyebbé válik az alkalmazások fejlesztése és karbantartása, mivel a különböző részeket egymástól függetlenül lehet fejleszteni és tesztelni.
+
+- Model (Modell):
+
+A modell felelős az alkalmazás üzleti logikájának és adatmanipulációjának kezeléséért.
+Tartalmazza az adatokat és a hozzájuk tartozó műveleteket.
+Nem függ a felhasználói felülettől vagy a vezérlőtől, így könnyen tesztelhető és újrahasznosítható.
+
+- View (Nézet):
+
+A nézet felelős az információ megjelenítéséért és a felhasználói felület kialakításáért.
+A nézet nem tartalmazza az alkalmazás üzleti logikáját, csak az adatok megjelenítésére szolgáló eszközöket.
+Értesítéseket fogad a modeltől, amikor az adatok változnak, és frissíti magát ennek megfelelően.
+
+- Controller (Vezérlő):
+
+A vezérlő feladata az felhasználói interakciók kezelése, azok feldolgozása és továbbítása a model és a nézet között.
+Fogadja a bejövő kéréseket a felhasználótól, elvégzi a szükséges műveleteket, majd frissíti a modelt vagy a nézetet.
+A vezérlő biztosítja a kapcsolatot a model és a nézet között, de maga nem tartalmazza a teljes üzleti logikát.
+
+![image](https://github.com/rozsakitti/Webfejleszt-s/assets/90957539/bfd8c156-c634-4132-beaf-068ddb5791e2)
+
+
 ### Mi az @autowired?
+
 
 ### Mi az @inject?
 
