@@ -181,6 +181,7 @@ A vezérlő feladata az felhasználói interakciók kezelése, azok feldolgozás
 Fogadja a bejövő kéréseket a felhasználótól, elvégzi a szükséges műveleteket, majd frissíti a modelt vagy a nézetet.
 A vezérlő biztosítja a kapcsolatot a model és a nézet között, de maga nem tartalmazza a teljes üzleti logikát.
 
+![image](https://github.com/rozsakitti/Webfejleszt-s/assets/90957539/744fb534-78c4-4d5a-acde-f905f99cd6cc)
 
 ### Mi az @autowired?
 
@@ -233,7 +234,6 @@ Ebben a példában a MyServlet osztály injektálja a MyService típusú függő
 
 Az @Inject annotációval történő függőség-befecskendezés lehetőséget nyújt a gyenge kapcsolatú és könnyen tesztelhető komponensek létrehozására, mivel a függőségeket az objektum kívülről kapja meg, és nem maga hozza létre őket.
 
-<center> ![image](https://github.com/rozsakitti/Webfejleszt-s/assets/90957539/c36b5325-d17e-48e0-b39e-b54c13b5150c) </center>
 
 - ### Különbségek: @autowired és @injection
 
