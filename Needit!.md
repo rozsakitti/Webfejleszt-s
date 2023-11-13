@@ -354,37 +354,98 @@ xxxxx.yyyyy.zzzzz
 
 **zzzzz** a base64Url-kódolt aláírás.
 
-### Angular szintaxis: ???
+### Angular szintaxis: 
+
+- String interpoláció:
+
+  <p>Welcome, {{ username }}!</p>
+
+- Eseménykötés:
+
+  <button (click)="onClick()">Click me</button>
+
+- Tulajdonságkötés:
+
+  <input [value]="myProperty">
+
 
 ### Milyen http kérések léteznek? => get, head, post, put, delete, connect, options, trace, patch
 
 **GET**: Az erőforrás lekérése. A GET kérés nem módosítja az erőforrást, csak lekéri az azt reprezentáló adatokat.
 
+        GET /index.html HTTP/1.1
+        Host: www.example.com
+
 **HEAD**: A HEAD kérés hasonló a GET kéréshez, de csak a fejléceket kéri le, anélkül, hogy a tényleges tartalmat elküldené.
+
+        HEAD /info HTTP/1.1
+        Host: www.example.com
 
 **POST** => create: Arra szolgál, hogy új erőforrást hozzon létre a szerveren, például új felhasználót regisztrálni. A POST nem idempotens, azaz ugyanazt a kérést többször elküldve más és más eredményt hozhat létre.
 
+        POST /submit-form HTTP/1.1
+        Host: www.example.com
+        Content-Type: application/x-www-form-urlencoded
+        
+        username=johndoe&password=secretpass
+
 **PUT**: => update: Az adatok küldése a szervernek a megadott erőforrás módosítása céljából. A szerver a kért erőforrást módosítja, vagy ha nem létezik, létrehozza azt. A PUT idempotens, azaz ugyanazt a kérést többször elküldve ugyanazt az eredményt hozza létre.
+  
+        PUT /update-resource HTTP/1.1
+        Host: www.example.com
+        Content-Type: application/json
+        
+        {
+          "id": 123,
+          "data": "updated content"
+        }
+
+----
+
+        PUT /users/1
+        {
+          "name": "John Doe",
+          "age": 30,
+          "email": "john.doe@example.com"
+        }
 
 **DELETE**: Az erőforrás törlése a szerveren.
 
+        DELETE /delete-resource/123 HTTP/1.1
+        Host: www.example.com
+
 **CONNECT**: A célja egy TCP-tunnel kiépítése a kliens és a szerver között.
+
+        CONNECT www.example.com:443 HTTP/1.1
+        Host: www.example.com:443
 
 **OPTIONS**: A szerverrel való kommunikáció paramétereinek lekérése. Például, hogy milyen HTTP módszereket támogat a szerver.
 
-**TRACE**: A kliensnek lehetősége van kérni a szervertől, hogy küldje vissza az eredeti kérési fejléceket. Általában a hibakeresésre használják.
+        OPTIONS /supported-methods HTTP/1.1
+        Host: www.example.com
+
+**TRACE**: A kliensnek lehetősége van kérni a szervertől, hogy küldje vissza az eredeti kérési fejléceket. Általában a hibakeresésre használják. 
+A TRACE módszer arra szolgál, hogy az ügyfél képes legyen kinyomozni, hogy a kérés milyen formában érkezik meg a szerverhez, és hogy a szerver hogyan dolgozza fel azt. A szerver minden egyes proxy-n, gateway-en, vagy más eszközön, amelyen áthalad, hozzáad egy Via fejlécet a válaszához.
+
+        TRACE /path/to/resource HTTP/1.1
+        Host: www.example.com
+
+  szerver válasza:
+  
+        HTTP/1.1 200 OK
+        Date: Thu, 11 Nov 2023 12:00:00 GMT
+        Content-Type: message/http
+        
+        TRACE /path/to/resource HTTP/1.1
+        Host: www.example.com
+        Via: 1.1 proxy.example.com (Proxy/1.0)
+        Via: 1.1 gateway.example.com (Gateway/2.0)
+
 
 **PATCH**:A PATCH kérés célja egy meglévő erőforrás részleges módosítása. Ez hasznos lehet, ha csak néhány adatot kell frissíteni, és nem akarjuk teljesen lecserélni az erőforrást.
 
-### String interpoláció: 
-olyan eljárás, amely lehetővé teszi egy karakterlánc (string) szövegbe ágyazott változók vagy kifejezések értékének beillesztését. 
 
-         String template = "Hi ${name}! Your number is ${number}";
-        
-        Map<String, String> data = new HashMap<String, String>();
-        data.put("name", "John");
-        data.put("number", "1");
-        
-        String formattedString = StrSubstitutor.replace(template, data);
-
-
+        PATCH /users/1
+        {
+          "age": 31
+        }
